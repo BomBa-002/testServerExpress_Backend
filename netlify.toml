@@ -1,10 +1,4 @@
-[functions]
-  external_node_modules = ["express"]
-  node_bundler = "esbuild"
 [[redirects]]
-  force = true
-  from = "/*"
-  to = "/server.js"
-  status = 200
-[build]
-  command = "echo 'npm run start'"
+from = "/*"
+to = "/server.js"
+status = 200
