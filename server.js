@@ -95,3 +95,6 @@ process.on('unhandledRejection', (err) => {
   if (NODE_ENV === 'development') console.error(err.stack);
 });
 //#endregion
+
+
+// yarn && yarn dev && ngrok http 5000 --domain=example.ngrok-free.app

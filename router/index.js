@@ -3,14 +3,14 @@
 import { Router } from 'express';
 const router = Router();
 
-const ls = ['../utils/currencyConverter.js' /* تحديد مسار الهاتف */];
-ls.forEach((i) => {
-  router.use((req, res, next) =>
-    import(i)
-      .then((m) => m._router(req, res, next))
-      .catch(next)
-  );
-});
+// const ls = ['../utils/currencyConverter.js' /* تحديد مسار الهاتف */];
+// ls.forEach((i) => {
+//   router.use((req, res, next) =>
+//     import(i)
+//       .then((m) => m._router(req, res, next))
+//       .catch(next)
+//   );
+// });
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 

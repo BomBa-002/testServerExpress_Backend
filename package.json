@@ -5,8 +5,10 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "dev": "concurrently \"npm run start\""
+    "start": "node server.js",
+    "ngr": "ngrok http 5000",
+    "dev0": "concurrently \"npm run start\" \"sleep 5 && ngrok http 5000\"",
+    "tunnel": "ngrok http 5000 --domain=example.ngrok-free.app"
   },
   "dependencies": {
     "axios": "^1.6.2",
@@ -20,6 +22,7 @@
     "express-rate-limit": "^7.5.0",
     "express-validator": "^7.2.1",
     "helmet": "^8.0.0",
+    "localtunnel": "^2.0.2",
     "moment": "^2.30.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
