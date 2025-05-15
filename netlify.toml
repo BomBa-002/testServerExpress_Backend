@@ -7,4 +7,4 @@
   to = "/server.js"
   status = 200
 [build]
-  command = "echo 'Building server'"
+  command = "echo 'npm run start'"
