@@ -54,7 +54,8 @@ app.use(express.static('public'));
 
 //#region 🧭 Routes
 app.get('/', (req, res) => {
-  res.send('🌍 Welcome to the API Server!');
+  // res.send('🌍 Welcome to the API Server!');
+  import('path').then(m=> res.sendFile(m.path.resolve('public/index.html'))); /* عرض صفحة موقع مصصمة داهل المتصفج */
 });
 
 // Mount Main API Routes
