@@ -53,9 +53,16 @@ app.use(express.static('public'));
 //#endregion
 
 //#region 🧭 Routes
+// app.get('/', (req, res) => {
+//   // res.send('🌍 Welcome to the API Server!');
+//   import('path').then(m=> res.sendFile(m.path.resolve('public/index.html'))); /* عرض صفحة موقع مصصمة داهل المتصفج */
+// });
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 app.get('/', (req, res) => {
-  // res.send('🌍 Welcome to the API Server!');
-  import('path').then(m=> res.sendFile(m.path.resolve('public/index.html'))); /* عرض صفحة موقع مصصمة داهل المتصفج */
+  res.sendFile(join(__dirname, 'public', 'index.html'));
 });
 
 // Mount Main API Routes
