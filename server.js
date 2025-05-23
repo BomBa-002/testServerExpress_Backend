@@ -1,4 +1,11 @@
 /* eslint-disable no-undef */
+const version = [ // Version of the API
+  {id: 1, vs: 'v1.0.0', commit: ['تم انشاء السيرفر.'], updatedAt: '2025-05-10'},
+  {id: 2, vs: 'v1.0.1', commit: ['تم انشاء قاعدة البيانات.', 'تم انشاء ملف config_db.js.', 'تم انشاء ملف router.js.', 'تم انشاء ملف index.js.', 'تم انشاء ملف message.js.', 'تم انشاء ملف errorMiddleware.js.', 'تم انشاء ملف server.js.'], updatedAt: '2025-05-15'},
+  {id: 3, vs: 'v1.0.2', commit: [
+    'تم التعديل وتحديث ملفات الويب سيت (<span dir="ltr">index server web site</span>) للسيرفر.'
+  ], updatedAt: '2025-05-20'},
+];
 import express from 'express';
 import 'dotenv/config';
 
@@ -28,7 +35,16 @@ if (NODE_ENV === 'development') {
 }
 
 // Security Headers
-app.use(helmet());
+// إعداد سياسة أمان المحتوى مع Helmet
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      "script-src": ["'self'", "'unsafe-inline'"], // السماح بـ inline scripts
+      "style-src": ["'self'", "'unsafe-inline'"], // السماح بـ inline styles
+    },
+  },
+}));
 
 // CORS
 app.use(cors());
@@ -64,6 +80,8 @@ const __dirname = dirname(__filename);
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'public', 'index.html'));
 });
+// Route لعرض الإصدار ك JSON
+app.get('/api/version', (req, res) => { res.json({ data: version }); });
 
 // Mount Main API Routes
 app.use('/api/v1', async (req, res, next) => {

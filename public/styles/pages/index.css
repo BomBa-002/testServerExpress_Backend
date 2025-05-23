@@ -1,0 +1,93 @@
+
+.hero{
+  padding: 0.5em;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5em;
+}
+/* .hero section{} */
+/* --------- --------- --------- --------- --------- --------- --------- */
+
+.welcome-container {
+    text-align: center;
+  }
+
+  img {
+    font-size: 2000%;
+    width: 1em;
+    height: 1em;
+  }
+
+  h1 {
+    font-size: 400%;
+    margin-bottom: 0.5em;
+    color: var(--primary);
+  }
+
+  p {
+    font-size: 150%;
+  }
+
+  .btn {
+    margin-top: 2em;
+    font-size: 150%;
+  }
+
+
+/* --------- --------- --------- --------- --------- --------- --------- */
+
+
+  .card {
+    /* background: var(--dark); */
+    border-radius: 1em;
+    box-shadow: 0 0.5em 1em hsla(var(--hsl-primary), 0.2);
+    margin: auto;
+    /* margin-top: 2em; */
+    padding: 2em;
+    /* max-width: 30em; */
+  }
+
+  .card h2 {
+    font-size: 1.5em;
+    color: var(--primary);
+    margin-bottom: 1em;
+    text-align: center;
+  }
+
+  .card-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1em 0;
+  }
+
+  .circle {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background-color: var(--gray);
+    transition: background-color 0.3s;
+  }
+
+  .good { background-color: var(--success); }
+  .warning { background-color: var(--warning); }
+  .bad { background-color: var(--danger); }
+
+  .label { font-size: 1.2em; }
+
+  #clock {
+    direction: ltr;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 0.3em 0.6em;
+    background-color: var(--secondary);
+    color:  var(--dark);
+    border-radius: 0.5em;
+    min-width: 10em;
+    text-align: center;
+  }

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html class="dark" lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../favicon.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/pages/version.css" />
+    <title>BomBa Server - سجل الإصدارات</title>
+</head>
+<body>
+  <div id="root">
+    <header class="header">
+      <nav>
+        <a href="/"> <img src="../favicon.svg" alt="LOGO"> </a>
+        <h1>BomBa Server</h1>
+        <a href="/" class="btn bg-primary">Back</a>
+      </nav>
+      <div class="subtitle">سجل إصدارات النظام</div>
+    </header>
+    <main class="main scrollable-1">
+      <!-- سيتم ملؤها بواسطة JavaScript -->
+      <div class="versions-container" id="versionsContainer">
+          <div class="loading">جاري تحميل بيانات الإصدارات...</div>
+      </div>
+    </main>
+  </div>
+    
+  <script>
+      // جلب بيانات الإصدارات من السيرفر
+      fetch('/api/version')
+          .then(res => res.json())
+          .then(r => {
+            const { data } = r;
+            // console.log(data);
+            
+              if (!data || data.length === 0) {
+                  document.getElementById('versionsContainer').innerHTML = 
+                      '<div class="error">لا توجد إصدارات متاحة حالياً.</div>';
+                  return;
+              }
+            
+              const container = document.getElementById('versionsContainer');
+              container.innerHTML = '';
+              
+              // ترتيب الإصدارات من الأحدث إلى الأقدم
+              data.sort((a, b) => b.id - a.id).forEach(d => {
+                  const card = document.createElement('div');
+                  card.className = 'version-card';
+                  
+                  const header = document.createElement('div');
+                  header.className = 'version-header';
+                  
+                  const versionNumber = document.createElement('div');
+                  versionNumber.className = 'version-number';
+                  versionNumber.textContent = d.vs;
+                  
+                  const versionDate = document.createElement('div');
+                  versionDate.className = 'version-date';
+                  versionDate.textContent = d.updatedAt.replace(/-/g, " / ");
+                  
+                  header.appendChild(versionNumber);
+                  header.appendChild(versionDate);
+                  
+                  const changesList = document.createElement('ul');
+                  changesList.className = 'changes-list';
+                  
+                  d.commit.forEach(change => {
+                      const changeItem = document.createElement('li');
+                      changeItem.className = 'change-item';
+                        // إنشاء عنصر bdo لضبط اتجاه النص
+                        const bdoElement = document.createElement('bdo');
+                        bdoElement.setAttribute('dir', 'rtl'); // تحديد الاتجاه من اليمين لليسار
+                        // bdoElement.textContent = change;
+                        bdoElement.innerHTML = change;
+                        changeItem.appendChild(bdoElement);                      
+                      changesList.appendChild(changeItem);
+                  });
+                  
+                  card.appendChild(header);
+                  card.appendChild(changesList);
+                  container.appendChild(card);
+              });
+          })
+          .catch(error => {
+              console.error('Error fetching versions:', error);
+              document.getElementById('versionsContainer').innerHTML = 
+                  '<div class="error">تعذر تحميل بيانات الإصدارات. الرجاء المحاولة لاحقاً.</div>';
+          });
+  </script>
+</body>
+</html>

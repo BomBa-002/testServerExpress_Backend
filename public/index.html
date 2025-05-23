@@ -1,75 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
-    <title>Welcome BomBa Server</title>
-    <style>
-      :root {
-        --bg-body: #282c34;
-        --c-text: white;
-        --c-title: #a9f83f /*#61dafb*/;
-        --bg-btn: var(--c-title);
-        --bg-btn-hover: hsla(var(--c-title), calc(1 - 0.4));
-        --c-btn: #282c34;
-      }
-      body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: var(--bg-body);
-        font-family: Arial, sans-serif;
-        font-size: 1rem;
-        color: var(--c-text);
-      }
+<html class="dark" lang="en" dir="ltr">
 
-      .welcome-container {
-        text-align: center;
-      }
-      img {
-        font-size: 2000%;
-        width: 1em;
-        height: 1em;
-      }
-      h1 {
-        font-size: 400%;
-        margin-bottom: 0.5em;
-        color: var(--c-title);
-      }
-      p {
-        font-size: 150%;
-      }
-      .button {
-        display: inline-block;
-        margin-top: 1.25em;
-        padding: 0.625em 1.25em;
-        font-size: 1.2em;
-        color: var(--c-btn);
-        background-color: var(--bg-btn);
-        border: none;
-        border-radius: 0.3125em;
-        cursor: pointer;
-        text-decoration: none;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="./styles/main.css" />
+  <link rel="stylesheet" href="./styles/pages/index.css" />
+  <title>Welcome BomBa Server</title>
+</head>
 
-      .button:hover {
-        transition: all 0.3s ease-in-out 0s;
-        color: var(--c-text);
-        filter: brightness(80%);
-        /* background-color: var(--bg-btn-hover); */
+<body>
+  <div id="root">
+    <main class="main scrollable-1">
+      <article class="hero">
+        <section class="card welcome-container">
+          <img src="./favicon.svg" alt="LOGO" />
+          <h1>Welcome to BomBa Server</h1>
+          <p>Your server is up and running!</p>
+          <a href="/pages/version.html" class="btn bg-primary ">Get version</a>
+          <a href="/pages/apiRouter.html" class="btn bg-secondary ">Get router</a>
+          <!-- <a href="#" class="btn ">Get Started</a> -->
+        </section>
+
+        <hr class="horizontal" />
+
+        <section class="card">
+          <h2>مراقبة النظام</h2>
+          <div class="card-item">
+            <span class="label">حالة الإنترنت</span>
+            <span class="circle" id="netStatus"></span>
+          </div>
+          <div class="card-item">
+            <span class="label">رابط API</span>
+            <span class="circle" id="apiStatus"></span>
+          </div>
+          <div class="card-item">
+            <span class="label">حجم الشاشة</span>
+            <span id="screenSize"></span>
+          </div>
+          <div class="card-item">
+            <span class="label">الوقت والتاريخ</span>
+            <span id="clock"></span>
+          </div>
+        </section>
+      </article>
+
+    </main>
+  </div>
+
+
+  <script>
+    const netCircle = document.getElementById('netStatus');
+    const apiCircle = document.getElementById('apiStatus');
+    const screenSpan = document.getElementById('screenSize');
+    const clockSpan = document.getElementById('clock');
+
+    function updateInternetStatus() {
+      netCircle.className = 'circle ' + (navigator.onLine ? 'good' : 'bad');
+    }
+
+    async function updateAPIStatus() {
+      try {
+        const res = await fetch('/ping'); // غيّر هذا إلى رابط API فعلي
+        apiCircle.className = 'circle ' + (res.ok ? 'good' : 'warning');
+      } catch {
+        apiCircle.className = 'circle bad';
       }
-    </style>
-  </head>
-  <body>
-    <div class="welcome-container">
-      <img src="./favicon.svg" alt="LOGO" />
-      <h1>Welcome to BomBa Server</h1>
-      <p>Your server is up and running!</p>
-      <a href="#" class="button">Get Started</a>
-    </div>
-  </body>
+    }
+
+    function updateScreenSize() {
+      screenSpan.textContent = `${window.innerWidth} × ${window.innerHeight}`;
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const date = now.toLocaleDateString('ar-EG', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+      const time = now.toLocaleTimeString('ar-EG');
+      clockSpan.textContent = `${date} - ${time}`;
+    }
+
+    setInterval(() => {
+      updateInternetStatus();
+      updateAPIStatus();
+      updateScreenSize();
+      updateClock();
+    }, 2000);
+
+    window.addEventListener('resize', updateScreenSize);
+    updateInternetStatus();
+    updateAPIStatus();
+    updateScreenSize();
+    updateClock();
+  </script>
+</body>
+
 </html>

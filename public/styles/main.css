@@ -1,0 +1,176 @@
+
+
+/*#region [ BASE ] */
+  :root {
+    /* hsl-Color */
+    --hsl-primary: 90, 60%, 50%;
+    --hsl-secondary: 200, 60%, 50%;
+    /* --------------------------- */
+
+    --primary: hsl(var(--hsl-primary));
+    --secondary: hsl(var(--hsl-secondary));
+    --light: color-mix(in srgb, var(--primary) 5%, #fff);
+    --gray:  color-mix(in srgb, var(--primary) 50%, #888);
+    --dark: color-mix(in srgb, var(--primary) 10%, #000);
+
+    --success: color-mix(in srgb, var(--primary) 50%, hsl(145, 80%, 50%));
+    --info: color-mix(in srgb, var(--primary) 50%, hsl(200, 90%, 60%));
+    --warning: color-mix(in srgb, var(--primary) 50%, hsl(45, 100%, 50%));
+    --danger: color-mix(in srgb, var(--primary) 50%, hsl(0, 85%, 55%));
+
+
+    --primary-D10: color-mix(in srgb, var(--primary) 90%, #000);
+    --primary-L10: color-mix(in srgb, var(--primary) 90%, #fff);
+
+    --card-bg: hsl(from var(--dark) h s l / 0.2);
+    --btn-bg: var(--primary);
+    --btn-bg-hover: hsl(var(--primary) h s l 0.6);
+    --btn-text: var(--light);
+  }
+  :root.dark {
+    /* hsl-Color */
+    --hsl-primary: 90, 90%, 70%;
+    --hsl-secondary: 200, 90%, 70%;
+    /* --------------------------- */
+    --light: color-mix(in srgb, var(--primary) 10%, #000);
+    --dark: color-mix(in srgb, var(--primary) 5%, #fff);
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    color: var(--dark);
+    background-color: var(--light);
+  }
+  #root {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .header,
+  .main {
+    width: 100%;
+  }
+  .header {
+    text-align: center;
+  }
+  .main {
+    padding-top: 1em;
+    flex: 1;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+/*#endregion */
+
+/* --------- --------- --------- --------- --------- --------- --------- */
+
+/*#region [ GLOBAL Class ] */
+
+  /*#region hr | line:- */
+  hr, .hr {
+    position: relative;
+  }
+  .bg-glass:before,
+  hr:before,
+  .hr:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background-color: var(--card-bg);
+    box-shadow: none;
+    border: 0.0625em solid var(--primary);
+    border-radius: 0.5em;
+    backdrop-filter: blur(0.5em);
+    -webkit-backdrop-filter: blur(0.5em);
+  }
+  hr,
+  .hr {
+    width: 100%;
+    height: 0.1em;
+    padding: 0 1em;
+    border-radius: 0.5em;
+  }
+  hr.horizontal,
+  .hr.horizontal {
+    /* width: 0.065em; */
+    width: 0.15em;
+    height: 100%;
+    padding: 1em 0;
+  }
+  /*#endregion */
+
+  /*#region button:- */
+  .btn {
+    color: inherit;
+    display: inline-block;
+    padding: 0.625em 1.25em;
+    font-size: 1em;
+    border: none;
+    border-radius: 0.3125em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .bg-primary { background-color: var(--primary); } .bg-primary:hover { background-color: hsla(var(--hsl-primary), 0.6); }
+  .bg-secondary { background-color: var(--secondary); } .bg-secondary:hover { background-color: hsla(var(--hsl-secondary), 0.6); }
+  /*#endregion */
+
+  /*#region scrollable:- */
+  .scrollable-1 {
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s ease;
+
+    /* // لمنع الإهتزاز عند ظهور الشريط */
+    padding-right: 0.5em;
+  }
+
+  .scrollable-1:hover,
+  .scrollable-1:focus-within {
+    scrollbar-color: var(--primary) transparent;
+  }
+
+  /* دعم كامل لل WebKit (كروم وسفاري) */
+  .scrollable-1::-webkit-scrollbar {
+    width: 0.5em;
+    transition: opacity 0.3s ease;
+    opacity: 0; /* مخفي افتراضياً */
+  }
+
+  .scrollable-1:hover::-webkit-scrollbar,
+  .scrollable-1:focus-within::-webkit-scrollbar {
+    opacity: 1;
+  }
+
+  .scrollable-1::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 0.5em;
+  }
+
+  .scrollable-1::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 0.5em;
+    transition: background-color 0.3s ease;
+  }
+
+  .scrollable-1::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-D10);
+  }
+  /*#endregion */
+
+/*#endregion */
