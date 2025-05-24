@@ -4,7 +4,7 @@
   "description": "API for currency conversion using real-time exchange rates.",
   "type": "module",
   "main": "server.js",
-    "engines": {
+  "engines": {
     "node": ">=18.x"
   },
   "scripts": {
